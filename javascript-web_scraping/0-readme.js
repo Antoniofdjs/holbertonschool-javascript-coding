@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const fs = require('fs');
+import { readFile } from 'fs';
 
 // Get the file path from command-line arguments
 const filePath = process.argv[2];
@@ -11,7 +11,7 @@ if (!filePath) {
 }
 
 // Read the content of the file
-fs.readFile(filePath, 'utf8', (err, data) => {
+readFile(filePath, 'utf8', (err, data) => {
   if (err) {
     // Handle file not found error (ENOENT)
     if (err.code === 'ENOENT') {
