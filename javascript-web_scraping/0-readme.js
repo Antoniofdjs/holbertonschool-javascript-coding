@@ -16,15 +16,16 @@ readFile(filePath, 'utf8', (err, data) => {
     // Handle file not found error (ENOENT)
     if (err.code === 'ENOENT') {
       // Create custom error object with desired format
-      const customError = {
-        Error: `ENOENT: no such file or directory, open '${filePath}' at Error (native)`,
-        errno: -2,
-        code: 'ENOENT',
-        syscall: 'open',
-        path: filePath
-      };
+      const customError = new Error(
+        `ENOENT: no such file or directory, open '${filePath}'`
+      );
+      customError.errno = -2;
+      customError.code = 'ENOENT';
+      customError.syscall = 'open';
+      customError.path = filePath;
 
-      console.error(customError); // Output the custom error object
+      // Output the custom error object
+      console.error(customError);
     } else {
       console.error(err); // Handle other types of errors
     }
