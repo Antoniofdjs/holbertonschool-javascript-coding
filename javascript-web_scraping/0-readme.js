@@ -1,5 +1,5 @@
 #!/usr/bin/node
-import { readFile } from 'fs';
+const { readFile } = require('fs');
 
 // Get the file path from command-line arguments
 const filePath = process.argv[2];
@@ -16,13 +16,13 @@ readFile(filePath, 'utf8', (err, data) => {
     // Handle file not found error (ENOENT)
     if (err.code === 'ENOENT') {
       // Create custom error object with desired format
-      const customError = new Error(
-        `ENOENT: no such file or directory, open '${filePath}'`
-      );
-      customError.code = 'ENOENT';
-      customError.errno = -2;
-      customError.syscall = 'open';
-      customError.path = filePath;
+      const customError = {
+        Error: `ENOENT: no such file or directory, open '${filePath}' at Error (native)`,
+        errno: -2,
+        code: 'ENOENT',
+        syscall: 'open',
+        path: filePath
+      };
 
       console.error(customError); // Output the custom error object
     } else {
