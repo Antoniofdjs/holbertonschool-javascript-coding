@@ -1,14 +1,14 @@
 #!/usr/bin/node
-const request = require("request");
+const request = require('request');
 
-const characterId = "18"; // Wedge antilles
+const characterId = '18'; // Wedge antilles
 
 const url = process.argv[2];
 
 let count = 0;
 request(url, (error, response) => {
   if (error) {
-    console.error("Error:", error.message);
+    console.error('Error:', error.message);
     process.exit(1); // Exit with an error code
   } else {
     // Get body from json
