@@ -1,11 +1,11 @@
 #!/usr/bin/node
-const request = require("request");
+const request = require('request');
 const url = process.argv[2];
 const completedUsers = {};
 
 request(url, (error, response) => {
   if (error) {
-    console.error("Error:", error.message);
+    console.error('Error:', error.message);
     process.exit(1); // Exit with an error code
   } else {
     // get the body that has <p> tags and is not JSON...
