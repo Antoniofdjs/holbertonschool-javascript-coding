@@ -3,7 +3,7 @@ const request = require("request");
 
 const characterId = "18"; // Wedge antilles
 
-const url = "https://swapi-api.hbtn.io/api/films";
+const url = process.argv[2];
 
 let count = 0;
 request(url, (error, response) => {
