@@ -9,25 +9,35 @@ const countStudents = (path) => {
   }
 
   const lines = data.split('\n');
-  const totalStudents = lines.length - 1;
   const students = lines.map((line) => line.split(','));
 
   students.shift(); // remove headers
   const fieldsAndStudents = {};
 
   for (const student of students) {
-    const studentName = student[0];
-    const field = student[3].replace('\r', '');
-    // Create field(if not exist) and append names as a list
-    if (fieldsAndStudents[`${field}`]) {
-      fieldsAndStudents[`${field}`].push(studentName);
-    } else {
-      fieldsAndStudents[`${field}`] = [studentName];
+    // Check if student has enough elements
+    if (student.length >= 4) {
+      const studentName = student[0];
+      const field = student[3].replace('\r', '');
+      // Create field(if not exist) and append names as a list
+      if (fieldsAndStudents[`${field}`]) {
+        fieldsAndStudents[`${field}`].push(studentName);
+      } else {
+        fieldsAndStudents[`${field}`] = [studentName];
+      }
     }
+  }
+  let totalStudents = 0;
+  for (const namesList of Object.values(fieldsAndStudents)) {
+    totalStudents += namesList.length;
   }
   console.log(`Number of students: ${totalStudents}`);
   for (const [field, names] of Object.entries(fieldsAndStudents)) {
-    console.log(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
+    console.log(
+      `Number of students in ${field}: ${names.length}. List: ${names.join(
+        ', '
+      )}`
+    );
   }
 };
 module.exports = countStudents;
